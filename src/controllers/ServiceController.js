@@ -16,7 +16,7 @@ module.exports = {
       await knex('text').insert({ name: encrypt(name) });
       const lastIdOnDatabase = await knex.select('id').from('text').limit(1).orderBy('id', 'desc')
 
-      return response.json({
+      return response.status(201).json({
         'id': lastIdOnDatabase[0].id,
         'encrypted_name': "SHAZAM!"
       })
@@ -27,23 +27,23 @@ module.exports = {
 
   async index(request, response) {
     const { id } = request.params;
-    const selectedItem = await knex.select('name').from('text').where('id', '=', id)
 
+    try {
+      const selectedItem = await knex.select('name').from('text').where('id', '=', id)
 
+      if (selectedItem.length === 0) {
+        return response.status(406).json({
+          "code": "E_VALIDATION_FAILURE",
+          "message": "O ID informado não está cadastrado"
+        })
+      }
+      const decryptedName = decrypt(selectedItem[0].name)
 
-    if (selectedItem.length === 0) {
-      return response.status(406).json({
-        "code": "E_VALIDATION_FAILURE",
-        "message": "O ID informado não está cadastrado"
+      response.status(200).json({
+        "name": decryptedName
       })
+    } catch (error) {
+      console.log(error)
     }
-
-    const decryptedName = decrypt(selectedItem[0].name)
-
-    response.status(200).json({
-      "name": decryptedName
-    })
-
-
   }
 };

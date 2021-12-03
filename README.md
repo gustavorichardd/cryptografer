@@ -74,6 +74,6 @@ Ao final desta aba, vai ter a opção de "Manual deploy" você pode escolher a B
 
 Por último, você vai ir na aba de Settings, e vai na opção de "Config Vars".
 Nela você precisa definir as variáveis de ambiente da aplicação, mas nessa parte, você não precisa dos dados do banco!
-Como comentei, o heroku já identifica automáticamente as informações.
+Como comentei, o heroku já identifica automáticamente as informações do banco!
 
-https://facile-challenge.herokuapp.com/
+Uma vez o deploy feito, você consegue utilizar as mesmas rotas da API, só que agora, o endereço das rotas você vai ver 
