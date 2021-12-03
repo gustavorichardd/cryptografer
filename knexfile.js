@@ -35,7 +35,12 @@ module.exports = {
   },
   heroku: {
     client: 'postgresql',
-    connection: process.env.DATABASE_URI,
+    connection: {
+      connectionString: process.env.DATABASE_URI,
+      ssl: {
+        rejectUnauthorized: false,
+      }
+    },
     migrations: {
       directory: path.resolve(__dirname, 'src', 'database', 'migrations')
     }
