@@ -1,5 +1,7 @@
 const { Router } = require('express')
 
+const ServiceController = require('./controllers/ServiceController')
+
 const routes = Router();
 
 routes.post('/encripts', ServiceController.store);
