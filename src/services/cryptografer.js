@@ -14,10 +14,9 @@ function decrypt(stringToDecrypt) {
   const [iv, contentMessage] = stringToDecrypt.split(':')
   const ivBuffer = Buffer.from(iv, 'hex')
   const decipher = crypto.createDecipheriv(process.env.ALGORITHM_TYPE, Buffer.from(secret), ivBuffer)
-  let content = decipher.update(Buffer.from(contentMessage, 'hex'))
-  content = Buffer.concat([content, decipher.final()])
-
-  return content.toString();
+  let decryptedMessage = decipher.update(Buffer.from(contentMessage, 'hex'))
+  decryptedMessage = Buffer.concat([content, decipher.final()])
+  return decryptedMessage.toString();
 };
 
 module.exports = { encrypt, decrypt }
