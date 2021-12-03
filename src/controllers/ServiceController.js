@@ -12,13 +12,17 @@ module.exports = {
       })
     }
 
-    await knex('text').insert({ name: encrypt(name) });
-    const lastIdOnDatabase = await knex.select('id').from('text').limit(1).orderBy('id', 'desc')
+    try {
+      await knex('text').insert({ name: encrypt(name) });
+      const lastIdOnDatabase = await knex.select('id').from('text').limit(1).orderBy('id', 'desc')
 
-    return response.json({
-      'id': lastIdOnDatabase[0].id,
-      'encrypted_name': "SHAZAM!"
-    })
+      return response.json({
+        'id': lastIdOnDatabase[0].id,
+        'encrypted_name': "SHAZAM!"
+      })
+    } catch (error) {
+      console.log(error)
+    }
   },
 
   async index(request, response) {
