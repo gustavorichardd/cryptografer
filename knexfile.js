@@ -34,7 +34,7 @@ module.exports = {
     }
   },
   heroku: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       connectionString: process.env.DATABASE_URI,
       ssl: {
