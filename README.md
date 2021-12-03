@@ -26,6 +26,7 @@ O primeiro, é criar o arquivo com as variaveis do ambiente, eu deixei um modelo
 As conexões com o banco você pode usar tanto local como na núvem, no meu caso, eu utilizei um banco disponibilizado pela Heroku.
 
 Preenchido os dados do banco de dados, você vai voltar no seu terminal, e vai criar as tabelas do banco:
+Importante, a "DATABASE_URI" você deve deixar em branco sempre! beleza?
 
 "yarn knex:migrate"
 
@@ -35,9 +36,43 @@ Depois disso, você pode rodar a API:
 
 "yarn start"
 
-Feito isto, você já vai conseguir fazer as requisições para a API;
+# Usando a API
+
+Feita a instalação, você já vai conseguir fazer as requisições para a API (Você pode usar o Insomnia, Postman... Eu usei um addon do VSC: Thunder Client);
 
 Para criar um registro, você vai usar uma rota POST para o endereço "http://localhost:3333/encripts";
-No retorno da rota, ele vai te dar um ID, salva ele pra você poder consultar depois.
 
-Uma vez criado o registro, você vai conseguir consultar ele através do "http://localhost:3333/encripts/ID"
+Quando você chamar esta rota, será chamado a função Store do ServiceController, ele tem basicamente 2 funções:
+1) Garantir que o nome digitado foi um nome válido
+2) Gravar o texto digitado no banco de dados.
+Para isto, ele vai utilizar o módulo cryptografer, que possui 2 funções, uma para criptografar e uma para descriptografar. Neste momento, usaremos apenas a de criptografar.
+
+Gravando corretamente no banco, SHAZAM! Gravamos no banco e temos retorno de status 201.
+
+No retorno da rota, ele vai te dar um ID, você vai conseguir consultar ele através do "http://localhost:3333/encripts/ID";
+
+Nesta rota, será chamada a função de index do ServiceController, que irá fazer o seguinte:
+Consultará no banco o registro com base no ID que você passou.
+Se por um acaso esse ID não existir, então teremos um retorno de 406, pois não há nada a mostrar.
+Porém caso tudo estiver certo, ele vai retornar o nome descriptografado, graçar a função de decrypt do módulo cryptografer.
+
+# Usando com o Heroku
+
+Uma opção também seria utilizar o Heroku para utilizar a API.
+Tendo uma conta na Heroku, você vai no seu painel e adiciona um novo app.
+Para isto você vai precisar que o projeto esteja no seu github!
+
+UMa vez ele adicionado, você vai na parte de Installed add-ons, e vai na opção de Configure Add-ons";
+Você vai procurar pelo addon "Heroku Postegres" e vai adicionar ele.
+
+É importante manter os dados da conexão do módulo de connection, porque quando o app está hospedado no heroku e você possui o heroku postgres, ele já vai identificar automaticamente os dados do postgres.
+
+O próximo passo, é você ir na aba de "Deploy".
+Na opção de Deployment method você vai vincular a sua conta do Github, e então vai localizar o repositório;
+
+Ao final desta aba, vai ter a opção de "Manual deploy" você pode escolher a Brance desejada e depois clicar na opçãod e "Deploy Branch".
+
+Por último, você vai ir na aba de Settings, e vai na opção de "Config Vars".
+Nela você precisa definir as variáveis de ambiente da aplicação, mas nessa parte, você não precisa dos dados do banco!
+Como comentei, o heroku já identifica automáticamente as informações.
+
