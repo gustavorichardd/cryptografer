@@ -22,7 +22,7 @@ module.exports = {
   heroku: {
     client: 'pg',
     connection: {
-      connectionString: process.env.DATABASE_URI,
+      connectionString: process.env.DATABASE_URL,
       ssl: {
         rejectUnauthorized: false
       },
