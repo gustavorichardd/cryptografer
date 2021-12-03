@@ -15,7 +15,7 @@ module.exports = {
     await knex('text').insert({ name: encrypt(name) });
     const lastIdOnDatabase = await knex.select('id').from('text').limit(1).orderBy('id', 'desc')
 
-    return response.status(201).json({
+    return response.json({
       'id': lastIdOnDatabase[0].id,
       'encrypted_name': "SHAZAM!"
     })
@@ -25,7 +25,7 @@ module.exports = {
     const { id } = request.params;
     const selectedItem = await knex.select('name').from('text').where('id', '=', id)
 
-    console.log(selectedItem.length)
+
 
     if (selectedItem.length === 0) {
       return response.status(406).json({
