@@ -15,7 +15,7 @@ function decrypt(stringToDecrypt) {
   const ivBuffer = Buffer.from(iv, 'hex')
   const decipher = crypto.createDecipheriv(process.env.ALGORITHM_TYPE, Buffer.from(secret), ivBuffer)
   let decryptedMessage = decipher.update(Buffer.from(contentMessage, 'hex'))
-  decryptedMessage = Buffer.concat([content, decipher.final()])
+  decryptedMessage = Buffer.concat([decryptedMessage, decipher.final()])
   return decryptedMessage.toString();
 };
 
