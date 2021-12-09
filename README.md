@@ -1,13 +1,11 @@
-# Facile Challenge
-
-API desenvolvida para o Challenge Encriptador – Backend, da Facile!
+# Cryptografer
 
 Foi utilizada nodeJS na versão v16.7.0
-Para gerenciamento do banco de dados foi utilizad o Knex.JS e para subir o servidor web usado o Express.JS.
+Para gerenciamento do banco de dados foi utilizado Knex.JS e para subir o servidor web usado o Express.JS.
 
 Por questões de segurança também foi utilizado o dotenv.
 
-# instalação
+### instalação
 
 Para instalação:
 Primeiro passo é realizar o clone do projeto.
@@ -36,7 +34,7 @@ Depois disso, você pode rodar a API:
 
 "yarn start"
 
-# Usando a API
+### Usando a API
 
 Feita a instalação, você já vai conseguir fazer as requisições para a API (Você pode usar o Insomnia, Postman... Eu usei um addon do VSC: Thunder Client);
 
@@ -56,7 +54,7 @@ Consultará no banco o registro com base no ID que você passou.
 Se por um acaso esse ID não existir, então teremos um retorno de 406, pois não há nada a mostrar.
 Porém caso tudo estiver certo, ele vai retornar o nome descriptografado, graçar a função de decrypt do módulo cryptografer.
 
-# Usando com o Heroku
+### Usando com o Heroku
 
 Uma opção também seria utilizar o Heroku para utilizar a API.
 Tendo uma conta na Heroku, você vai no seu painel e adiciona um novo app.
